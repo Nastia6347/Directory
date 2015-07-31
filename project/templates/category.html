@@ -1,6 +1,14 @@
 {% extends "index.html" %}
 {% block slug %}
     {{ block.super }}
+{#    <a href="/{{ category_list.0.object.parent.id }}">{{ category_list.0.object.parent.slug }}</a>#}
+{#    <a href="/{{ category_list.0.object.id }}">{{ category_list.0.object.slug }}</a>#}
+    {% for slug in slug_list %}
+        {% if slug != slug_list|last %}
+            <a href="/{{ slug.id }}">{{ slug.title }}</a> /
+        {% else %} {{ slug.title }}
+        {% endif  %}
+    {% endfor %}
 {% endblock %}
 {% block category %}
     {% for category in category_list %}
@@ -12,14 +20,16 @@
 {% block product %}
     <table style="margin-bottom: 0px;" class="table table-bordered">
         {% for product in product_list.object_list %}
-            <tr style="height: 170px;">
+            <tr>
                 {% for j in product %}
-                    <td style="width: 170px;">
-                        {{ j }}
-                        {% if j.picture %}
-                            <img src="{{ j.picture }}"/>
-                        {% else %}
-                            <img style="width: 170px; height: 170px;" src="{{ j.category.picture }}"/>
+                    <td style="width: 170px; height: 170px;">
+                        {% if j != '' %}
+                            <p>{{ j }}</p>
+                            {% if j.picture %}
+                                <img style="width: 150px; height: 100px;" src="{{MEDIA_URL}}{{ j.picture }}"/>
+                            {% else %}
+                                <img style="width: 150px; height: 100px;" src="{{MEDIA_URL}}{{ j.category.picture }}"/>
+                            {% endif %}
                         {% endif %}
                     </td>
                 {% endfor %}

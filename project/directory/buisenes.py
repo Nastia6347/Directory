@@ -10,19 +10,27 @@ def list_category(ul, n):
         return g
 
 
-def list_product(ul):
+def list(ul):
         g = []
         for x in ul:
                 g += Product.objects.filter(category=x.get('object')).order_by('title')
         return g
 
 
-def list(category):
+def list_product(category):
         ul = []
-        ul += list_product(category)
+        ul += list(category)
         n = len(ul) % 12
         if len(ul) == 0 or n > 0:
             for x in range(12-n):
                 ul.append('')
         g = [ul[i:i + 4] for i in range(0, len(ul), 4)]
+        return g
+
+
+def list_slug(ul):
+        g = []
+        for x in ul:
+                g += list_slug(Category.objects.filter(id=x.parent_id))
+                g += [x]
         return g
