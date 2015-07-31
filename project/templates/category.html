@@ -1,0 +1,29 @@
+{% extends "index.html" %}
+{% block slug %}
+    {{ block.super }}
+{% endblock %}
+{% block category %}
+    {% for category in category_list %}
+        <tr>
+            <td class="level-{{ category.level }}"><a href="/{{ category.object.id }}">{{ category.object }}</a></td>
+        </tr>
+    {% endfor %}
+{% endblock %}
+{% block product %}
+    <table style="margin-bottom: 0px;" class="table table-bordered">
+        {% for product in product_list.object_list %}
+            <tr style="height: 170px;">
+                {% for j in product %}
+                    <td style="width: 170px;">
+                        {{ j }}
+                        {% if j.picture %}
+                            <img src="{{ j.picture }}"/>
+                        {% else %}
+                            <img style="width: 170px; height: 170px;" src="{{ j.category.picture }}"/>
+                        {% endif %}
+                    </td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

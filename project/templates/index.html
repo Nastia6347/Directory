@@ -1,0 +1,84 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+<head lang="en">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" media="screen" href="{% static "css/bootstrap.css" %}"/>
+    <link rel="stylesheet" type="text/css" media="screen" href="{% static "css/bootstrap-theme.css" %}"/>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+    <script type="text/javascript" src="{% static "js/bootstrap.js" %}"></script>
+    <title>{% block title %}Электроный каталог{% endblock %}</title>
+</head>
+<body class="container">
+<h1 class="text-center">Электронный каталог</h1>
+    <table class="col-sm-12 table table-bordered">
+        <tr>
+            <td></td>
+            <td colspan="4">Строка поиска:</td>
+        </tr>
+        <tr>
+            <td colspan="5">Адресная строка:{% block slug %} <a href="/">/</a>{% endblock %}</td>
+        </tr>
+        <tr>
+            <td rowspan="2" class="col-sm-2">
+                <table class="table table-bordered">
+                    <tr>
+                        <td>Категории:</td>
+                    </tr>
+                {% block category %}
+                    {% for category in category_list %}
+                        <tr>
+                            <td class="level-{{ category.level }}"><a href="/{{ category.object.id }}">{{ category.object }}</a></td>
+                        </tr>
+                    {% endfor %}
+                {% endblock %}
+                </table>
+            </td>
+            <td class="col-sm-10">
+                {% block product %}
+                <table style="margin-bottom: 0px;" class="table table-bordered">
+                    {% for product in product_list.object_list %}
+                    <tr style="height: 170px;">
+                        {% for j in product %}
+                        <td style="width: 170px;">
+                            {{ j }}
+                            {% if j.picture %}
+                                <img src="{{ j.picture }}"/>
+                            {% else %}
+                                <img style="width: 170px; height: 170px;" src="{{ j.category.picture }}"/>
+                            {% endif %}
+                        </td>
+                        {% endfor %}
+                    </tr>
+                    {% endfor %}
+                </table>
+                {% endblock %}
+            </td>
+        </tr>
+        <tr>
+            <td class="col-sm-10 pagination" colspan="4">
+                <span class="step-links">
+                    {% if product_list.has_previous %}
+                         <a href="?page={{ product_list.previous_page_number }}">previous</a>
+                    {% endif %}
+
+                    <span class="current">
+                        {% if product_list.number != 1 and product_list.previous_page_number != 1 %}
+                            <a href="?page=1">1</a> ...
+                        {% endif %}
+                          {{ product_list.number }}
+                        {% if product_list.number != product_list.paginator.num_pages and product_list.next_page_number != product_list.paginator.num_pages %}
+                             ... <a href="?page={{ product_list.paginator.num_pages }}">{{ product_list.paginator.num_pages }}</a>
+                        {% endif %}
+                    </span>
+
+                    {% if product_list.has_next %}
+                        <a href="?page={{ product_list.next_page_number }}">next</a>
+                    {% endif %}
+                </span>
+            </td>
+        </tr>
+    </table>
+{% block script %}{% endblock %}
+</body>
+</html>
