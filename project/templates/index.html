@@ -28,7 +28,7 @@
                 {% block category %}
                     {% for category in category_list %}
                         <tr>
-                            <td class="level-{{ category.level }}"><a href="/">{{ category.object }}</a></td>
+                            <td class="level-{{ category.level }}"><a href="{{ category.object.id }}">{{ category.object }}</a></td>
                             <td>{{ category.object.slug }}</td>
                         </tr>
                     {% endfor %}

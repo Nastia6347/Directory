@@ -1,6 +1,7 @@
 from django.db import models
 from django.db import IntegrityError, transaction
 import re
+from django.utils.text import slugify
 # Create your models here.
 
 
@@ -12,10 +13,11 @@ class Category(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = self.title
+            self.slug = slugify(self.title)
         slug_list = Category.objects.filter(slug=self.slug)
         if slug_list:
-            self.slug += self.id
+            lastid = Category.objects.latest('id')
+            self.slug = slugify(self.title) + str(lastid + 1)
         super(Category, self).save(*args, **kwargs)
         # if not self.slug:
         #     self.slug = self.title

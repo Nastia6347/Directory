@@ -3,8 +3,8 @@
     {{ block.super }}
     {% for bread in bread_crumbs %}
         {% if bread != bread_crumbs|last %}
-            <a href="/{{ bread.id }}">{{ bread.title }}</a> /
-        {% else %} {{ bread.title }}
+            <a href="/{{ bread.id }}">{{ bread.title.lower }}</a> /
+        {% else %} {{ bread.title.lower }}
         {% endif  %}
     {% endfor %}
 {% endblock %}
