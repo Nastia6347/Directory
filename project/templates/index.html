@@ -28,7 +28,8 @@
                 {% block category %}
                     {% for category in category_list %}
                         <tr>
-                            <td class="level-{{ category.level }}"><a href="/{{ category.object.id }}">{{ category.object }}</a></td>
+                            <td class="level-{{ category.level }}"><a href="/">{{ category.object }}</a></td>
+                            <td>{{ category.object.slug }}</td>
                         </tr>
                     {% endfor %}
                 {% endblock %}
@@ -36,17 +37,17 @@
             </td>
             <td class="col-sm-10">
                 {% block product %}
-                <table style="margin-bottom: 0px;" class="table table-bordered">
+                <table class="table table-bordered product">
                     {% for product in product_list.object_list %}
                     <tr>
                         {% for j in product %}
-                        <td style="width: 170px; height: 170px;">
+                        <td>
                         {% if j != '' %}
                             <p>{{ j }}</p>
                             {% if j.picture %}
-                                <img style="width: 150px; height: 100px;" src="{{MEDIA_URL}}{{ j.picture }}"/>
+                                <img src="{{MEDIA_URL}}{{ j.picture }}"/>
                             {% else %}
-                                <img style="width: 150px; height: 100px;" src="{{MEDIA_URL}}{{ j.category.picture }}"/>
+                                <img src="{{MEDIA_URL}}{{ j.category.picture }}"/>
                             {% endif %}
                         {% endif %}
                         </td>

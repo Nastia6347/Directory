@@ -28,9 +28,9 @@ def list_product(category):
         return g
 
 
-def list_slug(ul):
+def bread_crumbs(ul):
         g = []
         for x in ul:
-                g += list_slug(Category.objects.filter(id=x.parent_id))
+                g += bread_crumbs(Category.objects.filter(id=x.parent_id))
                 g += [x]
         return g
