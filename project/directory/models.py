@@ -1,7 +1,7 @@
 from django.db import models
-from django.db import IntegrityError, transaction
-import re
 from django.utils.text import slugify
+from django.core.urlresolvers import reverse
+import trans
 # Create your models here.
 
 
@@ -12,28 +12,13 @@ class Category(models.Model):
     slug = models.CharField(max_length=70, editable=False, unique=True)
 
     def save(self, *args, **kwargs):
-        if not self.slug:
-            self.slug = slugify(self.title)
-        slug_list = Category.objects.filter(slug=self.slug)
-        if slug_list:
-            lastid = Category.objects.latest('id')
-            self.slug = slugify(self.title) + str(lastid + 1)
         super(Category, self).save(*args, **kwargs)
-        # if not self.slug:
-        #     self.slug = self.title
-        # while True:
-        #     try:
-        #         with transaction.atomic():
-        #             super(Category, self).save(*args, **kwargs)
-        #     except IntegrityError:
-        #         match_obj = re.match(r'^(.*)-(\d+)$', self.slug)
-        #         if match_obj:
-        #             next_int = int(match_obj.group(2)) + 1
-        #             self.slug = match_obj.group(1) + '-' + str(next_int)
-        #         else:
-        #             self.slug += '-2'
-        #     else:
-        #         break
+        if not self.slug:
+            self.slug = slugify(self.title.encode('trans'))
+            slug_list = Category.objects.filter(slug=self.slug)
+            if slug_list:
+                self.slug += str(self.id)
+            super(Category, self).save(*args, **kwargs)
 
     def __unicode__(self):
         return unicode(self.title)

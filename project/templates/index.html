@@ -17,7 +17,7 @@
             <td colspan="4">Строка поиска:</td>
         </tr>
         <tr>
-            <td colspan="5">Адресная строка:{% block slug %} / <a href="/">главная</a> /{% endblock %}</td>
+            <td colspan="5">Адресная строка:{% block slug %} / главная /{% endblock %}</td>
         </tr>
         <tr>
             <td rowspan="2" class="col-sm-2">
@@ -28,8 +28,7 @@
                 {% block category %}
                     {% for category in category_list %}
                         <tr>
-                            <td class="level-{{ category.level }}"><a href="{{ category.object.id }}">{{ category.object }}</a></td>
-                            <td>{{ category.object.slug }}</td>
+                            <td class="level-{{ category.level }}"><a href="/{{ category.slug }}">{{ category.object }}</a></td>
                         </tr>
                     {% endfor %}
                 {% endblock %}

@@ -5,7 +5,7 @@ from directory.models import Product, Category
 def list_category(ul, n):
         g = []
         for x in ul:
-                g += [{'object': x, 'level': n}]
+                g += [{'object': x, 'level': n, 'slug': "/".join(slug_list([x]))}]
                 g += list_category(Category.objects.filter(parent=x).order_by('title'), n+1)
         return g
 
@@ -32,5 +32,13 @@ def bread_crumbs(ul):
         g = []
         for x in ul:
                 g += bread_crumbs(Category.objects.filter(id=x.parent_id))
-                g += [x]
+                g += [{'object': x, 'slug': "/".join(slug_list([x]))}]
+        return g
+
+
+def slug_list(ul):
+        g = []
+        for x in ul:
+                g += slug_list(Category.objects.filter(id=x.parent_id))
+                g += [x.slug.encode()]
         return g

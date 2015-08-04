@@ -23,8 +23,8 @@ def index(request):
     return render(request, 'index.html', args)
 
 
-def category(request, category_id):
-    category_list = Category.objects.filter(id=category_id).order_by('title')
+def category(request, slug):
+    category_list = Category.objects.filter(slug=slug).order_by('title')
     bread_crumb = bread_crumbs(category_list)
     category_list = list_category(category_list, 0)
     product_list = list_product(category_list)
