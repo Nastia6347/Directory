@@ -1,25 +1,6 @@
 {% extends "index.html" %}
 {% block slug %}
-    / <a href="/">главная</a> /
-    {% for bread in bread_crumbs %}
-        {% if bread != bread_crumbs|last %}
-            <a href="/{{ bread.slug }}/">{{ bread.object.title.lower }}</a> /
-        {% else %} {{ bread.object.title.lower }}
-        {% endif  %}
-    {% endfor %}
-{% endblock %}
-{% block category %}
-    {% for category in category_list %}
-        <tr>
-            <td class="level-{{ category.level }}">
-                {% if category == category_list|first %}
-                    <b>{{ category.object }}</b>
-                {% else %}
-                    <a href="/{{ category.slug }}/">{{ category.object }}</a>
-                {% endif %}
-            </td>
-        </tr>
-    {% endfor %}
+    / <a href="/">главная</a> / {{ search_text }} /
 {% endblock %}
 {% block product %}
     <table class="table table-bordered product">

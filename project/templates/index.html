@@ -14,7 +14,11 @@
     <table class="col-sm-12 table table-bordered">
         <tr>
             <td></td>
-            <td colspan="4">Строка поиска:</td>
+            <td colspan="4">
+                <form action="/search/" method="get">
+                    <input type="text" name="q" class="col-xs-12" placeholder="Строка поиска:">
+                </form>
+            </td>
         </tr>
         <tr>
             <td colspan="5">Адресная строка:{% block slug %} / главная /{% endblock %}</td>
@@ -28,7 +32,9 @@
                 {% block category %}
                     {% for category in category_list %}
                         <tr>
-                            <td class="level-{{ category.level }}"><a href="/{{ category.slug }}/">{{ category.object }}</a></td>
+                            <td class="level-{{ category.level }}">
+                                <a href="/{{ category.slug }}/">{{ category.object }}</a>
+                            </td>
                         </tr>
                     {% endfor %}
                 {% endblock %}

@@ -42,3 +42,15 @@ def slug_list(ul):
                 g += slug_list(Category.objects.filter(id=x.parent_id))
                 g += [x.slug.encode()]
         return g
+
+
+def list_result(ul):
+        g = []
+        for x in ul:
+            g += x
+        n = len(g) % 12
+        if len(g) == 0 or n > 0:
+            for x in range(12-n):
+                g.append('')
+        c = [g[i:i + 4] for i in range(0, len(g), 4)]
+        return c
