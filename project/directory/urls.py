@@ -4,5 +4,5 @@ from directory import views
 
 urlpatterns = patterns('',
                        url(r'^$', views.index, name='index'),
-                       url(r'^(?P<slug>[-\w]+)/$', views.category, name='category'),
+                       url(r'(?P<slug>[-\w]+)/$', views.category, name='category'),
                        )

@@ -28,7 +28,7 @@ class Product(models.Model):
     title = models.CharField(max_length=200)
     picture = models.ImageField(upload_to='static/img', blank=True, null=True)
     category = models.ForeignKey(Category)
-    slug = models.CharField(max_length=70, editable=False, unique=True)
+    slug = models.CharField(max_length=70, editable=False, unique=True, blank=True, null=True)
 
     def __unicode__(self):
         return unicode(self.title)

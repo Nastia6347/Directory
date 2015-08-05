@@ -3,7 +3,7 @@
     / <a href="/">главная</a> /
     {% for bread in bread_crumbs %}
         {% if bread != bread_crumbs|last %}
-            <a href="/{{ bread.slug }}">{{ bread.object.title.lower }}</a> /
+            <a href="/{{ bread.slug }}/">{{ bread.object.title.lower }}</a> /
         {% else %} {{ bread.object.title.lower }}
         {% endif  %}
     {% endfor %}
@@ -11,7 +11,7 @@
 {% block category %}
     {% for category in category_list %}
         <tr>
-            <td class="level-{{ category.level }}"><a href="/{{ category.slug }}">{{ category.object }}</a></td>
+            <td class="level-{{ category.level }}"><a href="/{{ category.slug }}/">{{ category.object }}</a></td>
         </tr>
     {% endfor %}
 {% endblock %}
