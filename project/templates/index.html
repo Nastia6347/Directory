@@ -67,21 +67,21 @@
             <td class="col-sm-10 pagination" colspan="4">
                 <span class="step-links">
                     {% if product_list.has_previous %}
-                         <a href="?page={{ product_list.previous_page_number }}">previous</a>
+                         <a href="?{{params.urlencode}}&amp;page={{ product_list.previous_page_number }}">previous</a>
                     {% endif %}
 
                     <span class="current">
                         {% if product_list.number != 1 and product_list.previous_page_number != 1 %}
-                            <a href="?page=1">1</a> ...
+                            <a href="?{{params.urlencode}}&amp;page=1">1</a> ...
                         {% endif %}
                           {{ product_list.number }}
                         {% if product_list.number != product_list.paginator.num_pages and product_list.next_page_number != product_list.paginator.num_pages %}
-                             ... <a href="?page={{ product_list.paginator.num_pages }}">{{ product_list.paginator.num_pages }}</a>
+                             ... <a href="?{{params.urlencode}}&amp;page={{ product_list.paginator.num_pages }}">{{ product_list.paginator.num_pages }}</a>
                         {% endif %}
                     </span>
 
                     {% if product_list.has_next %}
-                        <a href="?page={{ product_list.next_page_number }}">next</a>
+                        <a href="?{{params.urlencode}}&amp;page={{ product_list.next_page_number }}">next</a>
                     {% endif %}
                 </span>
             </td>
