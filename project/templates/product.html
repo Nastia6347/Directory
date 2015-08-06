@@ -1,0 +1,41 @@
+<table class="table table-bordered product">
+    {% for product in product_list.object_list %}
+        <tr>
+            {% for j in product %}
+                <td>
+                    {% if j != '' %}
+                        <p>{{ j }}</p>
+                        {% if j.picture %}
+                            <img src="{{MEDIA_URL}}{{ j.picture }}"/>
+                        {% else %}
+                            <img src="{{MEDIA_URL}}{{ j.category.picture }}"/>
+                        {% endif %}
+                    {% endif %}
+                </td>
+            {% endfor %}
+        </tr>
+    {% endfor %}
+    <tr>
+    <td class="col-sm-10 pagination text-center" colspan="4">
+        <span class="step-links">
+            {% if product_list.has_previous %}
+                <a href="?{{params.urlencode}}&amp;page={{ product_list.previous_page_number }}">previous</a>
+            {% endif %}
+
+            <span class="current">
+                {% if product_list.number != 1 and product_list.previous_page_number != 1 %}
+                    <a href="?{{params.urlencode}}&amp;page=1">1</a> ...
+                {% endif %}
+                {{ product_list.number }}
+                {% if product_list.number != product_list.paginator.num_pages and product_list.next_page_number != product_list.paginator.num_pages %}
+                    ... <a href="?{{params.urlencode}}&amp;page={{ product_list.paginator.num_pages }}">{{ product_list.paginator.num_pages }}</a>
+                {% endif %}
+            </span>
+
+            {% if product_list.has_next %}
+                <a href="?{{params.urlencode}}&amp;page={{ product_list.next_page_number }}">next</a>
+            {% endif %}
+        </span>
+    </td>
+</tr>
+</table>

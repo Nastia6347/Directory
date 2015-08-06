@@ -15,13 +15,27 @@
         <tr>
             <td></td>
             <td colspan="4">
-                <form action="/search/" method="get">
-                    <input type="text" name="q" class="col-xs-12" placeholder="Строка поиска:">
+                <form action="/search/" method="get" id="search">
+                    <input type="text" name="q" class="col-xs-10" placeholder="Строка поиска:" id="search_input">
+                    <input type="submit" value="Поиск" class="col-xs-2">
                 </form>
             </td>
         </tr>
         <tr>
-            <td colspan="5">Адресная строка:{% block slug %} / главная /{% endblock %}</td>
+            <td colspan="5">
+                Адресная строка:
+                {% if bread_crumbs %}
+                    / <a href="/">главная</a> /
+                    {% for bread in bread_crumbs %}
+                    {% if bread != bread_crumbs|last %}
+                    <a href="/{{ bread.slug }}/">{{ bread.object.title.lower }}</a> /
+                    {% else %} {{ bread.object.title.lower }}
+                    {% endif  %}
+                    {% endfor %}
+                {% else %}
+                    / главная /
+                {% endif %}
+            </td>
         </tr>
         <tr>
             <td rowspan="2" class="col-sm-2">
@@ -29,64 +43,30 @@
                     <tr>
                         <td>Категории:</td>
                     </tr>
-                {% block category %}
-                    {% for category in category_list %}
-                        <tr>
-                            <td class="level-{{ category.level }}">
-                                <a href="/{{ category.slug }}/">{{ category.object }}</a>
-                            </td>
-                        </tr>
-                    {% endfor %}
-                {% endblock %}
+                    {% include "category.html" with bread_crumb=bread_crumbs|last %}
                 </table>
             </td>
-            <td class="col-sm-10">
-                {% block product %}
-                <table class="table table-bordered product">
-                    {% for product in product_list.object_list %}
-                    <tr>
-                        {% for j in product %}
-                        <td>
-                        {% if j != '' %}
-                            <p>{{ j }}</p>
-                            {% if j.picture %}
-                                <img src="{{MEDIA_URL}}{{ j.picture }}"/>
-                            {% else %}
-                                <img src="{{MEDIA_URL}}{{ j.category.picture }}"/>
-                            {% endif %}
-                        {% endif %}
-                        </td>
-                        {% endfor %}
-                    </tr>
-                    {% endfor %}
-                </table>
-                {% endblock %}
-            </td>
-        </tr>
-        <tr>
-            <td class="col-sm-10 pagination" colspan="4">
-                <span class="step-links">
-                    {% if product_list.has_previous %}
-                         <a href="?{{params.urlencode}}&amp;page={{ product_list.previous_page_number }}">previous</a>
-                    {% endif %}
-
-                    <span class="current">
-                        {% if product_list.number != 1 and product_list.previous_page_number != 1 %}
-                            <a href="?{{params.urlencode}}&amp;page=1">1</a> ...
-                        {% endif %}
-                          {{ product_list.number }}
-                        {% if product_list.number != product_list.paginator.num_pages and product_list.next_page_number != product_list.paginator.num_pages %}
-                             ... <a href="?{{params.urlencode}}&amp;page={{ product_list.paginator.num_pages }}">{{ product_list.paginator.num_pages }}</a>
-                        {% endif %}
-                    </span>
-
-                    {% if product_list.has_next %}
-                        <a href="?{{params.urlencode}}&amp;page={{ product_list.next_page_number }}">next</a>
-                    {% endif %}
-                </span>
-            </td>
-        </tr>
+            <td class="col-sm-10"  id="resSearch">
+                {% include "product.html" %}
     </table>
-{% block script %}{% endblock %}
+{% block script %}
+<script type="text/javascript">
+$(function(){
+    $("#search").on('submit', function() {
+        var search = $("#search_input").val();
+        $.ajax({
+            type: "GET",
+            url: "/search/",
+            data: {"q": search},
+            cache: false,
+            success: function (response) {
+                $("#resSearch").html(response);
+            }
+        });
+        return false;
+    });
+});
+</script>
+{% endblock %}
 </body>
 </html>

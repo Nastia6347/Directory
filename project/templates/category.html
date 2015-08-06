@@ -1,43 +1,11 @@
-{% extends "index.html" %}
-{% block slug %}
-    / <a href="/">главная</a> /
-    {% for bread in bread_crumbs %}
-        {% if bread != bread_crumbs|last %}
-            <a href="/{{ bread.slug }}/">{{ bread.object.title.lower }}</a> /
-        {% else %} {{ bread.object.title.lower }}
-        {% endif  %}
-    {% endfor %}
-{% endblock %}
-{% block category %}
-    {% for category in category_list %}
-        <tr>
-            <td class="level-{{ category.level }}">
-                {% if category == category_list|first %}
-                    <b>{{ category.object }}</b>
-                {% else %}
-                    <a href="/{{ category.slug }}/">{{ category.object }}</a>
-                {% endif %}
-            </td>
-        </tr>
-    {% endfor %}
-{% endblock %}
-{% block product %}
-    <table class="table table-bordered product">
-        {% for product in product_list.object_list %}
-            <tr>
-                {% for j in product %}
-                    <td>
-                        {% if j != '' %}
-                            <p>{{ j }}</p>
-                            {% if j.picture %}
-                                <img src="{{MEDIA_URL}}{{ j.picture }}"/>
-                            {% else %}
-                                <img src="{{MEDIA_URL}}{{ j.category.picture }}"/>
-                            {% endif %}
-                        {% endif %}
-                    </td>
-                {% endfor %}
-            </tr>
-        {% endfor %}
-    </table>
-{% endblock %}
+{% for category in category_list %}
+    <tr>
+        <td class="level-{{ category.level }}">
+            {% if category.object == bread_crumb.object %}
+                <b>{{ category.object }}</b>
+            {% else %}
+                <a href="/{{ category.slug }}/">{{ category.object }}</a>
+            {% endif %}
+        </td>
+    </tr>
+{% endfor %}
