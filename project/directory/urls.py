@@ -1,9 +1,9 @@
 __author__ = 'user'
 from django.conf.urls import patterns, url
-from directory import views
+from directory.views import index, search, category
 
 urlpatterns = patterns('',
-                       url(r'^$', views.index, name='index'),
-                       url(r'^search/$', views.search, name='search'),
-                       url(r'(?P<slug>[-\w]+)/$', views.category, name='category'),
+                       url(r'^$', index, name='index'),
+                       url(r'^search/$', search, name='search'),
+                       url(r'(?P<slug>[-\w]+)/$', category, name='category'),
                        )

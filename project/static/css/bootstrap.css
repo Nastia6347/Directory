@@ -2267,7 +2267,7 @@ th {
 .table {
   width: 100%;
   max-width: 100%;
-  margin-bottom: 0px;
+  margin-bottom: 8px;
     /*change*/
 }
 .table > thead > tr > th,
@@ -2308,7 +2308,7 @@ th {
   padding: 5px;
 }
 .table-bordered {
-  border: 1px solid #ddd;
+  border: 1px solid #000000;
 }
 .table-bordered > thead > tr > th,
 .table-bordered > tbody > tr > th,
