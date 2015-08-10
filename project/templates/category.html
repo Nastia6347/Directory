@@ -2,9 +2,9 @@
     <tr>
         <td class="level-{{ category.level }}">
             {% if category.object == bread_crumb.object %}
-                <b>{{ category.object }}</b>
+                <b>{{ category.object|capfirst }}</b>
             {% else %}
-                <a href="/{{ category.slug }}/">{{ category.object }}</a>
+                <a href="/{{ category.slug }}/">{{ category.object|capfirst }}</a>
             {% endif %}
         </td>
     </tr>

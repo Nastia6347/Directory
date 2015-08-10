@@ -8,11 +8,7 @@
                 <td>
                     {% if j != '' %}
                         <p>{{ j }}</p>
-                        {% if j.picture %}
-                            <img src="{{MEDIA_URL}}{{ j.picture }}"/>
-                        {% else %}
-                            <img src="{{MEDIA_URL}}{{ j.category.picture }}"/>
-                        {% endif %}
+                            <img src="{{MEDIA_URL}}{% firstof j.picture j.category.picture %}"/>
                     {% endif %}
                 </td>
             {% endfor %}

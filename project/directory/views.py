@@ -12,9 +12,6 @@ def index(request):
         product_list = list_result([Product.objects.filter(title__icontains=search_text)])
     else:
         product_list = list_product(category_list)
-    params = request.GET.copy()
-    if 'page' in params.keys():
-        del params['page']
     paginator = Paginator(product_list, 4)
     page = request.GET.get('page')
     try:
@@ -36,9 +33,6 @@ def category(request, slug):
         product_list = list_result([Product.objects.filter(title__icontains=search_text)])
     else:
         product_list = list_product(category_list)
-    params = request.GET.copy()
-    if 'page' in params.keys():
-        del params['page']
     category_list = list_category([bread_crumb[0].get('object')], 0)
     paginator = Paginator(product_list, 4)
     page = request.GET.get('page')
