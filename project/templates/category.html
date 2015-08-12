@@ -1,6 +1,6 @@
 {% for category in category_list %}
-    <tr>
-        <td class="level-{{ category.level }}">
+    <tr class="level-{{ category.level }}">
+        <td>
             {% if category.object == bread_crumb.object %}
                 <b>{{ category.object|capfirst }}</b>
             {% else %}
@@ -9,3 +9,4 @@
         </td>
     </tr>
 {% endfor %}
+</span>

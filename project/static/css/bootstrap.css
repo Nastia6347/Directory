@@ -2354,14 +2354,14 @@ table th[class*="col-"] {
 .table > tfoot > tr.active > th {
   background-color: #ef41f5;
 }
-.table > thead > tr > td.level-1,
-.table > tbody > tr > td.level-1,
-.table > tfoot > tr > td.level-1 {
+.table > thead > tr.level-1 > td,
+.table > tbody > tr.level-1 > td,
+.table > tfoot > tr.level-1 > td {
     padding-left: 15px;
 }
-.table > thead > tr > td.level-2,
-.table > tbody > tr > td.level-2,
-.table > tfoot > tr > td.level-2 {
+.table > thead > tr.level-2 > td,
+.table > tbody > tr.level-2 > td,
+.table > tfoot > tr.level-2 > td {
     padding-left: 25px;
 }
 /*change*/
