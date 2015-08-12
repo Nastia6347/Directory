@@ -1,5 +1,5 @@
 {% for category in category_list %}
-    <tr class="level-{{ category.level }}">
+    <tr class="level-{{ category.level }}" onclick="countRabbits(this, {{ category.level }}, '/{{ category.object.slug }}/')">
         <td>
             {% if category.object == bread_crumb.object %}
                 <b>{{ category.object|capfirst }}</b>

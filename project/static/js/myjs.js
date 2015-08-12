@@ -3,14 +3,6 @@
  */
 $(function(){
     $("#category tr:not(:first, .level-0)").hide();
-    $("#category tr:not(:first).level-0").click(function() {
-        $(this).nextUntil(".level-0").filter(".level-1").slideDown().click(function() {
-            $(this).nextUntil(".level-1").filter(".level-2").slideDown();
-            $("#category tr:not(:first, .level-0, :animated):visible.level-2").slideUp();
-        });
-        $("#category tr:not(:first, .level-0, :animated):visible").slideUp();
-    });
-
     $("#search").on('submit', function() {
         var search = $("#search_input").val();
         $.ajax({
@@ -24,6 +16,17 @@ $(function(){
         });
         return false;
     });
-
 });
+function countRabbits(element, level, slug) {
+    $(element).nextUntil(".level-"+level).filter(".level-"+(level+1)).slideDown();
+    $(element).siblings(":visible").not(":animated, :first, .level-0, .level-"+level).not(".level-"+(level-1)).slideUp();
+    $.ajax({
+        type: "GET",
+        url: slug,
+        cache: false,
+        success: function (response) {
+            $("#resSearch").html(response);
+            }
+        });
+    }
 

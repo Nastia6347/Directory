@@ -43,7 +43,7 @@ def category(request, slug):
     except EmptyPage:
         product = paginator.page(paginator.num_pages)
     args = {'product_list': product, 'category_list': category_list, 'bread_crumbs': bread_crumb, 'search_text': search_text}
-    return render(request, 'index.html', args)
+    return render(request, 'search.html', args)
 
 
 def search(request):
