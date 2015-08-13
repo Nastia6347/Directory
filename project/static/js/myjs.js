@@ -2,22 +2,24 @@
  * Created by user on 06.08.15.
  */
 $(function(){
-    $(".unclickable").on("click", function() {
-        SendingRequest();
-        return false;
+    $("#category a").on("click", function(e) {
+        var uri = $(this).attr("href");
+        SendingRequest(uri);
+        e.preventDefault();
     });
+
+    $("#paginator a").on("click", function(e) {
+        var uri = $(this).attr("href");
+        SendingRequest(uri);
+        e.preventDefault();
+    });
+
     $("#category tr:not(:first, .level-0)").hide();
     $("#search").on('submit', function() {
         $("#category tr:not(:first, .level-0)").hide();
         var search = $("#search_input").val();
-        $.ajax({
-            type: "GET",
-            url: "/search/?q="+search,
-            cache: false,
-            success: function (response) {
-                $("#resSearch").html(response);
-            }
-        });
+        var uri = "/search/?q="+search
+        SendingRequest(uri)
         return false;
     });
 });
@@ -32,14 +34,14 @@ function countRabbits(element, level) {
 }
 
 
-function SendingRequest() {
-    alert($(this));
-    //$.ajax({
-    //    type: "GET",
-    //    url: "???",
-    //    cache: false,
-    //    success: function (response) {
-    //        $("#resSearch").html(response);
-    //        }
-    //    });
+function SendingRequest(uri) {
+    history.pushState('', '', uri);
+    $.ajax({
+        type: "GET",
+        url: uri,
+        cache: false,
+        success: function (response) {
+            $("#resSearch").html(response);
+            }
+        });
 }
